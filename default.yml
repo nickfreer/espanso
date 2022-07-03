@@ -1,0 +1,73 @@
+# espanso configuration file
+
+# This is the default configuration file, change it as you like it
+# You can refer to the official documentation:
+# https://espanso.org/docs/
+global_vars:
+  - name: "yahoo"
+    type: "dummy"
+    params:
+      echo: "@yahoo.co.uk"
+
+# Matches are the substitution rules, when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":espanso"
+    replace: "Hi there!"
+
+  # Dates
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%d/%m/%Y"
+
+  - trigger: ":time"
+    replace: "{{mytime}}"
+    vars:
+      - name: mytime
+        type: date
+        params:
+          format: "%H:%M:%S"
+
+  # Shell commands
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo Hello from your shell"
+
+  # Emails
+  - triggers: [":yy", "yyy"]
+    replace: "nick.freer{{yahoo}}"
+  - triggers: [":ff", "fff"]
+    replace: "nick.freer@ymail.com"
+  - triggers: [":ii", "iii"]
+    replace: "nick.freer@uk.ibm.com"
+  - triggers: [":uu", "uuu"]
+    replace: "katie_mcbride_uk{{yahoo}}"
+
+  # Playing with the cusror
+  - trigger: ":play"
+    replace: "Hello $|$ How you doing"
+
+  # IP Address
+  - trigger: ":ip"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "curl 'https://api.ipify.org'"
+
+
+  # config dir
+  - trigger: ":cfg"
+    replace: "confg is in %CONFIG%"
+
+  # Temp	
